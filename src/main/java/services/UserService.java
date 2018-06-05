@@ -1,8 +1,6 @@
 package services;
 
-import io.restassured.response.Response;
 import models.User;
-import org.testng.Assert;
 import utils.RandomUtils;
 import utils.RequestUtils;
 

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class User implements Cloneable {
+public class User {
     public String  name, email, password, token;
     public int id;
 
@@ -28,7 +28,4 @@ public class User implements Cloneable {
         return result;
     }
 
-    protected Object clone() throws CloneNotSupportedException {
-        return super.clone();
-    }
 }

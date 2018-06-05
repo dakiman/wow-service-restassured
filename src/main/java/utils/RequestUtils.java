@@ -10,7 +10,8 @@ import static io.restassured.RestAssured.when;
 public class RequestUtils {
     private String route;
 
-    public RequestUtils() { }
+    public RequestUtils() {
+    }
 
     public RequestUtils(String route) {
         this.route = route;
@@ -28,7 +29,7 @@ public class RequestUtils {
     public Response post(String route, Object data) {
         return given().
                 body(data).
-                when().log().all().
+                when().
                 post(route);
     }
 

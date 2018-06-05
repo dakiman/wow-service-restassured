@@ -1,13 +1,9 @@
 package utils;
 
 import io.restassured.response.Response;
-import org.testng.Assert;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
-
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.core.IsEqual.equalTo;
 
 public class ValidationTestUtils {
     private String route;
