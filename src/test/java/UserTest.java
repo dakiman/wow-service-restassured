@@ -44,7 +44,7 @@ public class UserTest {
         User user = userService.generateDefaultUser();
         user.email = RandomUtils.randomString();
         Response res = reqUtils.post(user);
-        AssertionUtils.assertErrorMessage(res, "errors.email[0]", "The email must be a valid email address.");
+        AssertionUtils.assertValidationErrorMessage(res, "errors.email[0]", "The email must be a valid email address.");
     }
 
     @Test
@@ -54,7 +54,7 @@ public class UserTest {
         User newUser = userService.generateDefaultUser();
         newUser.email = user.email;
         Response res = reqUtils.post(newUser);
-        AssertionUtils.assertErrorMessage(res, "errors.email[0]", "The email has already been taken.");
+        AssertionUtils.assertValidationErrorMessage(res, "errors.email[0]", "The email has already been taken.");
     }
 
     @Test

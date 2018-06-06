@@ -31,19 +31,19 @@ public class ValidationTestUtils {
     public void fieldIsRequired(String fieldName, Object data) {
         this.changeFieldValue(fieldName, data, null);
         Response res = reqUtils.post(this.route, data);
-        AssertionUtils.assertErrorMessage(res, "errors." + fieldName + "[0]", "The " + fieldName + " field is required.");
+        AssertionUtils.assertValidationErrorMessage(res, "errors." + fieldName + "[0]", "The " + fieldName + " field is required.");
     }
 
     public void fieldMaximumLength(String fieldName, int max, Object data) {
         this.changeFieldValue(fieldName, data, RandomUtils.randomString(max + 1));
         Response res = reqUtils.post(this.route, data);
-        AssertionUtils.assertErrorMessage(res, "errors." + fieldName + "[0]", "The " + fieldName + " may not be greater than " + max + " characters.");
+        AssertionUtils.assertValidationErrorMessage(res, "errors." + fieldName + "[0]", "The " + fieldName + " may not be greater than " + max + " characters.");
     }
 
     public void fieldMinimumLength(String fieldName, int min, Object data) {
         this.changeFieldValue(fieldName, data, RandomUtils.randomString(min - 1));
         Response res = reqUtils.post(this.route, data);
-        AssertionUtils.assertErrorMessage(res, "errors." + fieldName + "[0]", "The " + fieldName + " must be at least " + min + " characters.");
+        AssertionUtils.assertValidationErrorMessage(res, "errors." + fieldName + "[0]", "The " + fieldName + " must be at least " + min + " characters.");
     }
 
     /*
@@ -52,19 +52,19 @@ public class ValidationTestUtils {
     public void fieldIsRequired(String fieldName, Object data, String route) {
         this.changeFieldValue(fieldName, data, null);
         Response res = reqUtils.post(route, data);
-        AssertionUtils.assertErrorMessage(res, "errors." + fieldName + "[0]", "The " + fieldName + " field is required.");
+        AssertionUtils.assertValidationErrorMessage(res, "errors." + fieldName + "[0]", "The " + fieldName + " field is required.");
     }
 
     public void fieldMaximumLength(String fieldName, int max, Object data, String route) {
         this.changeFieldValue(fieldName, data, RandomUtils.randomString(max + 1));
         Response res = reqUtils.post(route, data);
-        AssertionUtils.assertErrorMessage(res, "errors." + fieldName + "[0]", "The " + fieldName + " may not be greater than " + max + " characters.");
+        AssertionUtils.assertValidationErrorMessage(res, "errors." + fieldName + "[0]", "The " + fieldName + " may not be greater than " + max + " characters.");
     }
 
     public void fieldMinimumLength(String fieldName, int min, Object data, String route) {
         this.changeFieldValue(fieldName, data, RandomUtils.randomString(min - 1));
         Response res = reqUtils.post(route, data);
-        AssertionUtils.assertErrorMessage(res, "errors." + fieldName + "[0]", "The " + fieldName + " must be at least " + min + " characters.");
+        AssertionUtils.assertValidationErrorMessage(res, "errors." + fieldName + "[0]", "The " + fieldName + " must be at least " + min + " characters.");
     }
 
 }
