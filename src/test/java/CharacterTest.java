@@ -19,7 +19,7 @@ public class CharacterTest {
     private static RequestUtils reqUtils;
     private static UserService userService;
     private static HeroCharacterService charService;
-    ValidationTestUtils validate = new ValidationTestUtils("character");
+    private static ValidationTestUtils validate;
 
     @BeforeSuite
     public static void setup() {
@@ -27,6 +27,7 @@ public class CharacterTest {
         userService = new UserService();
         charService = new HeroCharacterService();
         reqUtils = new RequestUtils("character");
+        validate  = new ValidationTestUtils("character");
     }
 
     @Test
@@ -51,22 +52,12 @@ public class CharacterTest {
 
     @Test
     void characterNameRequired() {
-        User user = userService.generateRegisteredUserWithToken();
-        HeroCharacter heroCharacter = charService.generateCharacterData();
-        heroCharacter.name = "";
-        Response res = reqUtils.authPost(user, heroCharacter);
-        Assert.assertEquals(res.statusCode(), 422);
-        AssertionUtils.assertValidationErrorMessage(res, "errors.name[0]", "The name field is required.");
+        validate.fieldIsRequired("name", charService.generateCharacterData(), userService.generateRegisteredUserWithToken());
     }
 
     @Test
     void characterRealmRequired() {
-        User user = userService.generateRegisteredUserWithToken();
-        HeroCharacter heroCharacter = charService.generateCharacterData();
-        heroCharacter.realm = "";
-        Response res = reqUtils.authPost(user, heroCharacter);
-        Assert.assertEquals(res.statusCode(), 422);
-        AssertionUtils.assertValidationErrorMessage(res, "errors.realm[0]", "The realm field is required.");
+        validate.fieldIsRequired("realm", charService.generateCharacterData(), userService.generateRegisteredUserWithToken());
     }
 
     @Test
@@ -79,6 +70,7 @@ public class CharacterTest {
         }
         Response res = reqUtils.authGet(user);
         List<HeroCharacter> resCharacters = Arrays.asList(res.getBody().as(HeroCharacter[].class));
+        Assert.assertEquals(res.statusCode(), 200);
         Assert.assertEquals(characters, resCharacters);
     }
 

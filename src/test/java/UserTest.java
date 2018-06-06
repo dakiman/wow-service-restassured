@@ -12,13 +12,14 @@ import utils.ValidationTestUtils;
 public class UserTest {
     private static UserService userService;
     private static RequestUtils reqUtils;
-    ValidationTestUtils validate = new ValidationTestUtils("register");
+    private static ValidationTestUtils validate;
 
     @BeforeSuite
     public static void setup() {
         ConfigBuilder.defaultSetup();
         userService = new UserService();
         reqUtils = new RequestUtils("register");
+        validate = new ValidationTestUtils("register");
     }
 
     @Test
@@ -74,6 +75,10 @@ public class UserTest {
     }
 
     @Test
+    void userLastNameIsRequired() {
+        validate.fieldMinimumLength("last_name", 2, userService.generateDefaultUser());
+    }
+    @Test
     void nameMaxLength() {
         validate.fieldMaximumLength("name", 30, userService.generateDefaultUser());
     }
@@ -94,8 +99,5 @@ public class UserTest {
     {
         validate.fieldMinimumLength("name", 2, userService.generateDefaultUser(), "register");
     }
-
-
-
 
 }

@@ -12,15 +12,16 @@ public class UserService {
         this.reqUtils = new RequestUtils();
     }
 
-    public void generateTokenForUser(User user) {
-        if(user.id == 0){
-            registerUser(user);
-        }
+    private void generateTokenForUser(User user) {
         if (user.token == null) {
             Response res = reqUtils.post("login", user);
             user.token = res.jsonPath().getString("token");
         }
-//        return user.token;
+    }
+
+    private void registerUser(User user) {
+        Response res = reqUtils.post("register", user);
+        user.id = res.jsonPath().getInt("user.id");
     }
 
     public User generateDefaultUser() {
@@ -44,10 +45,6 @@ public class UserService {
         return user;
     }
 
-    private User registerUser(User user) {
-        Response res = reqUtils.post("register", user);
-        user.id = res.jsonPath().getInt("user.id");
-        return user;
-    }
+
 
 }

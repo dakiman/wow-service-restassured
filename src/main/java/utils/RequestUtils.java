@@ -1,7 +1,5 @@
 package utils;
 
-import io.restassured.RestAssured;
-import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.response.Response;
 import models.User;
 
@@ -49,7 +47,7 @@ public class RequestUtils {
                     post(this.route);
     }
 
-    public Response authPost(String route, User user,  Object data){
+    public Response authPost(String route, Object data, User user){
         return given().
                     body(data).
                     auth().oauth2(user.token).

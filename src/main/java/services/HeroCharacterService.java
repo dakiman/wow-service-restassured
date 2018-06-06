@@ -6,12 +6,6 @@ import models.User;
 import utils.RandomUtils;
 import utils.RequestUtils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import static io.restassured.RestAssured.given;
-
 public class HeroCharacterService {
     private RequestUtils reqUtils;
     private static UserService userService;
