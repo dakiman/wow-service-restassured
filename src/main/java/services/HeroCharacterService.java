@@ -8,7 +8,7 @@ import utils.RequestUtils;
 
 public class HeroCharacterService {
     private RequestUtils reqUtils;
-    private static UserService userService;
+//    private static UserService userService;
     private String [] names = {"Sernaos", "Dakis", "Dakimans", "Cirna", "Trolleyvolle", "Packaged"};
 
 
@@ -21,7 +21,7 @@ public class HeroCharacterService {
 
     public HeroCharacterService() {
         this.reqUtils = new RequestUtils("character");
-        userService = new UserService();
+//        userService = new UserService();
     }
 
     public HeroCharacter createCharacterForUser(User user) {

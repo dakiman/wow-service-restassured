@@ -6,10 +6,10 @@ import utils.RandomUtils;
 import utils.RequestUtils;
 
 public class UserService {
-    private RequestUtils reqUtils;
+    private static RequestUtils reqUtils;
 
     public UserService() {
-        this.reqUtils = new RequestUtils();
+        reqUtils = new RequestUtils();
     }
 
     private void generateTokenForUser(User user) {

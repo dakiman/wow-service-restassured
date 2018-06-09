@@ -46,8 +46,7 @@ public class CharacterTest {
         HeroCharacter heroCharacter = charService.generateCharacterData();
         heroCharacter.name = RandomUtils.randomString(10) + "123";
         Response res = reqUtils.authPost(user, heroCharacter);
-        Assert.assertEquals(res.statusCode(), 422);
-        AssertionUtils.assertValidationErrorMessage(res, "errors.character[0]", "Error processing character.");
+        AssertionUtils.assertValidationErrorMessage(res, "character", "Error processing character.");
     }
 
     @Test
@@ -79,7 +78,6 @@ public class CharacterTest {
         User user = userService.generateRegisteredUserWithToken();
         HeroCharacter heroCharacter = charService.createCharacterForUser(user);
         Response res = reqUtils.authDelete("character/" + heroCharacter.id, user);
-        Assert.assertEquals(res.statusCode(), 200);
         AssertionUtils.assertMessage(res, "success", "Character sucessfully deleted.", 200);
     }
 
@@ -89,9 +87,7 @@ public class CharacterTest {
         HeroCharacter heroCharacter = charService.createCharacterForUser(owner);
         User user = userService.generateRegisteredUserWithToken();
         Response res = reqUtils.authDelete("character/" + heroCharacter.id, user);
-        Assert.assertEquals(res.statusCode(), 403);
         AssertionUtils.assertMessage(res, "errors.character[0]", "You do not own this character.", 403);
-
     }
 }
 

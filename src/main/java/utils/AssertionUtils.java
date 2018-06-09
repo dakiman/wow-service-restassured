@@ -12,6 +12,8 @@ public class AssertionUtils {
     }
 
     public static void assertValidationErrorMessage(Response res, String messageIndex, String message) {
+        messageIndex = "errors." + messageIndex + "[0]";
         assertMessage(res, messageIndex, message, 422);
     }
+
 }

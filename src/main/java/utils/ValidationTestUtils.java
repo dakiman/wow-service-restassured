@@ -33,23 +33,6 @@ public class ValidationTestUtils {
     /*
       OVERLOADED METHODS OVERRIDING OBJECTS DEFAULTS
      */
-    public void fieldIsRequired(String fieldName, Object data, String route) {
-        changeFieldValue(fieldName, data, null);
-        Response res = reqUtils.post(route, data);
-        AssertionUtils.assertValidationErrorMessage(res, "errors." + fieldName + "[0]", "The " + fieldName + " field is required.");
-    }
-
-    public void fieldMaximumLength(String fieldName, int max, Object data, String route) {
-        changeFieldValue(fieldName, data, RandomUtils.randomString(max + 1));
-        Response res = reqUtils.post(route, data);
-        AssertionUtils.assertValidationErrorMessage(res, "errors." + fieldName + "[0]", "The " + fieldName + " may not be greater than " + max + " characters.");
-    }
-
-    public void fieldMinimumLength(String fieldName, int min, Object data, String route) {
-        changeFieldValue(fieldName, data, RandomUtils.randomString(min - 1));
-        Response res = reqUtils.post(route, data);
-        AssertionUtils.assertValidationErrorMessage(res, "errors." + fieldName + "[0]", "The " + fieldName + " must be at least " + min + " characters.");
-    }
 
     public void fieldIsRequired(String fieldName, Object data) {
         fieldIsRequired(fieldName, data, this.route);
@@ -63,24 +46,44 @@ public class ValidationTestUtils {
         fieldMinimumLength(fieldName, min, data, this.route);
     }
 
+    public void fieldIsRequired(String fieldName, Object data, String route) {
+        changeFieldValue(fieldName, data, null);
+        Response res = reqUtils.post(route, data);
+        AssertionUtils.assertValidationErrorMessage(res, fieldName, "The " + fieldName + " field is required.");
+    }
+
+    public void fieldMaximumLength(String fieldName, int max, Object data, String route) {
+        changeFieldValue(fieldName, data, RandomUtils.randomString(max + 1));
+        Response res = reqUtils.post(route, data);
+        AssertionUtils.assertValidationErrorMessage(res, fieldName, "The " + fieldName + " may not be greater than " + max + " characters.");
+    }
+
+    public void fieldMinimumLength(String fieldName, int min, Object data, String route) {
+        changeFieldValue(fieldName, data, RandomUtils.randomString(min - 1));
+        Response res = reqUtils.post(route, data);
+        AssertionUtils.assertValidationErrorMessage(res, fieldName, "The " + fieldName + " must be at least " + min + " characters.");
+    }
+
+
+
     /* METHODS INCORPORATING AUTH */
 
     public void fieldIsRequired(String fieldName, Object data, String route, User user) {
         changeFieldValue(fieldName, data, null);
         Response res = reqUtils.authPost(route, data, user);
-        AssertionUtils.assertValidationErrorMessage(res, "errors." + fieldName + "[0]", "The " + fieldName + " field is required.");
+        AssertionUtils.assertValidationErrorMessage(res, fieldName, "The " + fieldName + " field is required.");
     }
 
     public void fieldMaximumLength(String fieldName, int max, Object data, String route, User user) {
         changeFieldValue(fieldName, data, RandomUtils.randomString(max + 1));
         Response res = reqUtils.authPost(route, data, user);
-        AssertionUtils.assertValidationErrorMessage(res, "errors." + fieldName + "[0]", "The " + fieldName + " may not be greater than " + max + " characters.");
+        AssertionUtils.assertValidationErrorMessage(res, fieldName, "The " + fieldName + " may not be greater than " + max + " characters.");
     }
 
     public void fieldMinimumLength(String fieldName, int min, Object data, String route, User user) {
         changeFieldValue(fieldName, data, RandomUtils.randomString(min - 1));
         Response res = reqUtils.authPost(route, data, user);
-        AssertionUtils.assertValidationErrorMessage(res, "errors." + fieldName + "[0]", "The " + fieldName + " must be at least " + min + " characters.");
+        AssertionUtils.assertValidationErrorMessage(res, fieldName, "The " + fieldName + " must be at least " + min + " characters.");
     }
 
     public void fieldIsRequired(String fieldName, Object data, User user) {
